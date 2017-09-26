@@ -7,6 +7,11 @@
   function mainCtrl() {
     var vm = this;
 
-    vm.test = "TESTING";
+    vm.buttonName = "Submit";
+
+    vm.fooBar = function() {
+      console.log("input name:", vm.foo);
+    }
+
   }; // end of controller
 })(); // end of iife
