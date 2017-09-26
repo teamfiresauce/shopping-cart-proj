@@ -1,0 +1,25 @@
+{
+  "name": "shopping-cart-proj",
+  "version": "1.0.0",
+  "description": "Shopping cart project, Midterm, and eventually final project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamfiresauce/shopping-cart-proj.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamfiresauce/shopping-cart-proj/issues"
+  },
+  "homepage": "https://github.com/teamfiresauce/shopping-cart-proj#readme",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "@uirouter/angularjs": "^1.0.3",
+    "jquery": "^3.2.1"
+  }
+}
