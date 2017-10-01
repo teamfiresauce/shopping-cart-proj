@@ -1,19 +1,62 @@
 <?php
 require_once('./../resources/variables.php');
+$dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
 
+error_reporting(-1);
+ini_set('display_errors', 'On');
+set_error_handler("var_dump");
+
+
+// GET ALL PRODUCTS
 function getAllProducts ($dbconnection) 
 {
-  $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-  // Look up the username & password in the db
   $query = "SELECT * FROM products";
-  // Results
   $result = mysqli_query($dbconnection, $query) or die ('query failed');
 
   return $result;
 }
 
+// GET ALL PRODUCTS
+function getProductById ($dbconnection, $id) 
+{
+  $query = "SELECT * FROM products WHERE id = $id";
+  $result = mysqli_query($dbconnection, $query) or die ('query failed');
+
+  return $result;
+}
+
+// CREATE PRODUCT
+function createProduct ($dbconnection, $product) 
+{
+  $query = "INSERT INTO products (name, price, description, quantity)" .
+  "VALUES ('$product[name]','$product[price]','$product[description]','$product[quantity]')";
+  $result = mysqli_query($dbconnection, $query) or die ('query failed');
+
+  return $result;
+}
+
+// UPDATE PRODUCT
+function updateProduct ($dbconnection, $product) 
+{
+  $query = "UPDATE products SET SET name='$product[name]', price='$product[price]', description='$product[description]', quantity='$product[quantity]' WHERE id=$product[id]";
+  $result = mysqli_query($dbconnection, $query) or die ('query failed');
+
+  return $result;
+}
+
+// DELETE PRODUCT
+function deleteProduct ($dbconnection, $product) 
+{
+  $query = "DELETE FROM products WHERE id=$product[id]";
+  $result = mysqli_query($dbconnection, $query) or die ('query failed');
+
+  return $result;
+}
+
+
 $productsResult = getAllProducts($dbconnection);
 
+// DISPLAY RESULTS
 if($productsResult)
 {
   while($row = mysqli_fetch_array($productsResult)) 
