@@ -2,11 +2,6 @@
 require_once('./../resources/variables.php');
 $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
 
-error_reporting(-1);
-ini_set('display_errors', 'On');
-set_error_handler("var_dump");
-
-
 // GET ALL PRODUCTS
 function getAllProducts ($dbconnection) 
 {
@@ -17,9 +12,9 @@ function getAllProducts ($dbconnection)
 }
 
 // GET ALL PRODUCTS
-function getProductById ($dbconnection, $id) 
+function getProductById ($dbconnection, $product) 
 {
-  $query = "SELECT * FROM products WHERE id = $id";
+  $query = "SELECT * FROM products WHERE id = $product[id]";
   $result = mysqli_query($dbconnection, $query) or die ('query failed');
 
   return $result;
@@ -38,7 +33,7 @@ function createProduct ($dbconnection, $product)
 // UPDATE PRODUCT
 function updateProduct ($dbconnection, $product) 
 {
-  $query = "UPDATE products SET SET name='$product[name]', price='$product[price]', description='$product[description]', quantity='$product[quantity]' WHERE id=$product[id]";
+  $query = "UPDATE products SET name='$product[name]', price='$product[price]', description='$product[description]', quantity='$product[quantity]' WHERE id=$product[id]";
   $result = mysqli_query($dbconnection, $query) or die ('query failed');
 
   return $result;
@@ -53,6 +48,11 @@ function deleteProduct ($dbconnection, $product)
   return $result;
 }
 
+// $product = array ("id" => 1, "name" => "Awesome Sauce", "price" => 9.99, "description" => "Awesome.", "quantity" => 99);
+
+// echo "<code>";
+// print_r($product);
+// echo "</code>";
 
 $productsResult = getAllProducts($dbconnection);
 
