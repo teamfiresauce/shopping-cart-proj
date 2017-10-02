@@ -1,5 +1,9 @@
 <?php
-require_once('./../resources/variables.php');
+// ERROR HANDELING
+error_reporting(-1);
+ini_set('display_errors', 'On');
+set_error_handler("var_dump");
+// ERROR HANDELING
 $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
 
 // GET ALL PRODUCTS
@@ -48,30 +52,5 @@ function deleteProduct ($dbconnection, $product)
   return $result;
 }
 
-// $product = array ("id" => 1, "name" => "Awesome Sauce", "price" => 9.99, "description" => "Awesome.", "quantity" => 99);
-
-// echo "<code>";
-// print_r($product);
-// echo "</code>";
-
-$productsResult = getAllProducts($dbconnection);
-
-// DISPLAY RESULTS
-if($productsResult)
-{
-  while($row = mysqli_fetch_array($productsResult)) 
-    {
-      echo '<div style="margin:10px;border:0.5px solid gray;padding:10px;">';
-      echo 'Id #: ' . $row['id'] . '<br>';
-      echo 'Name: ' . $row['name'] . '<br>';
-      echo 'Price: $' . $row['price'] . '<br>';
-      echo 'Description: ' . $row['description'] . '<br>';
-      echo 'Quantity: ' . $row['quantity'] . '<br>';
-      echo '</div>';
-    }
-}
-
-//WE'RE DONE SO HANG UP
-mysqli_close($dbconnection);
 
 ?>
