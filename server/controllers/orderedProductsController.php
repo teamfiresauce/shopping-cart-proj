@@ -25,7 +25,7 @@ function getOrderedProductById ($orderedProduct)
 function createOrderedProduct ($orderedProduct)
 {
     $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "INSERT INTO ordered_products (orderId, productId)" .
+    $query = "INSERT INTO ordered_products (order_id, product_id)" .
     "VALUES ('$orderedProduct[orderId]','$orderedProduct[productId]')";
     $result = mysqli_query($dbconnection, $query) or die ('query failed');
     
@@ -36,7 +36,7 @@ function createOrderedProduct ($orderedProduct)
 function updateOrderedProduct ($orderedProduct)
 {
     $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "UPDATE ordered_products SET orderId='$orderedProduct[orderId]', productId='$orderedProduct[productId]' WHERE id=$orderedProduct[id]";
+    $query = "UPDATE ordered_products SET order_id='$orderedProduct[orderId]', product_id='$orderedProduct[productId]' WHERE id=$orderedProduct[id]";
     $result = mysqli_query($dbconnection, $query) or die ('query failed');
     
     return $result;
@@ -63,8 +63,8 @@ if($response)
     {
       echo '<div style="margin:10px;border:0.5px solid gray;padding:10px;">';
       echo 'Id #: ' . $row['id'] . '<br>';
-      echo 'order #: ' . $row['orderId'] . '<br>';
-      echo 'Product #:' . $row['productId'] . '<br>';
+      echo 'order #: ' . $row['order_id'] . '<br>';
+      echo 'Product #:' . $row['product_id'] . '<br>';
       echo '</div>';
     }
 }
