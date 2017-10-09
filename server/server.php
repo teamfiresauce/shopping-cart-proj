@@ -2,15 +2,18 @@
 // Dependencies
 require_once('./resources/variables.php');
 include_once('./controllers/productsController.php');
+include_once('./controllers/shippingControllers.php');
+
 $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
 
 $product = array ("id" => 1, "name" => "Awesome Sauce", "price" => 9.99, "description" => "Awesome.", "quantity" => 99);
+$shipping = array ("id" => 2, "name" => "Tanner", "city" => "Spanish Fork", "state" => "UT", "zip" => 84660, "address" => "1146 S 1180 E");
 
 echo "<code>";
 print_r($product);
 echo "</code>";
 
-$productsResult = getAllProducts();
+$shippingResult = updateShipping($shipping);
 
 // DISPLAY RESULTS
 if($productsResult)
