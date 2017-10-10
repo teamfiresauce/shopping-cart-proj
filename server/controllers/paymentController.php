@@ -1,12 +1,7 @@
 <?php
-// ERROR HANDELING
-error_reporting(-1);
-ini_set('display_errors', 'On');
-set_error_handler("var_dump");
-// ERROR HANDELING
 
 // GET ALL PAYMENT
-function getAllPayment () 
+function getAllPayments() 
 {
   $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
   $query = "SELECT * FROM payment";
@@ -16,7 +11,7 @@ function getAllPayment ()
 }
 
 // GET ALL PAYMENT
-function getPaymentById ($payment) 
+function getPaymentById($payment) 
 {
   $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
   $query = "SELECT * FROM payment WHERE id = $payment[id]";
@@ -26,19 +21,18 @@ function getPaymentById ($payment)
 }
 
 // CREATE PAYMENT
-function createPayment ($payment) 
+function createPayment($payment) 
 {
   $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-  $query = "INSERT INTO payment (name, price, description, quantity)" .
-  "VALUES ('$payment[cardHolder]','$payment[cardNumber]','$payment[expiration]','$payment[cvv]')";
+  $query = "INSERT INTO payment (card_holder, card_number, expiration, cvv)" .
+  "VALUES ('$payment[card_holder]','$payment[card_number]','$payment[expiration]','$payment[cvv]')";
   $result = mysqli_query($dbconnection, $query) or die ('query failed');
 
   return $result;
 }
 
-
 // DELETE PAYMENT
-function deletePayment ($dbconnection, $payment) 
+function deletePayment($payment) 
 {
   $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
   $query = "DELETE FROM payment WHERE id=$payment[id]";
@@ -46,6 +40,5 @@ function deletePayment ($dbconnection, $payment)
 
   return $result;
 }
-
 
 ?>
