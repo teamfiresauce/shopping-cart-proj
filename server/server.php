@@ -2,6 +2,7 @@
 // Dependencies
 require_once('./resources/variables.php');
 include_once('./controllers/productsController.php');
+include_once('./controllers/orderedProductsController.php');
 include_once('./controllers/shippingController.php');
 include_once('./controllers/paymentController.php');
 
