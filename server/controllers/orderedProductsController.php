@@ -1,5 +1,4 @@
 <?php
-require_once('./../resources/variables.php');
 
 // GET ALL PRODUCTS
 function getAllOrderedProducts ()
@@ -52,20 +51,4 @@ function deleteOrderedProduct ($orderedProduct)
     return $result;
 }
 
-$orderedProduct = array ("id" => 2, "orderId" => 1, "productId" => 3);
-
-$response = updateOrderedProduct($orderedProduct);
-
-// DISPLAY RESULTS
-if($response)
-{
-  while($row = mysqli_fetch_array($response)) 
-    {
-      echo '<div style="margin:10px;border:0.5px solid gray;padding:10px;">';
-      echo 'Id #: ' . $row['id'] . '<br>';
-      echo 'order #: ' . $row['order_id'] . '<br>';
-      echo 'Product #:' . $row['product_id'] . '<br>';
-      echo '</div>';
-    }
-}
 ?>
