@@ -110,6 +110,8 @@ switch ($method) {
         break;
 }
 
+return $result;
+
 //WE'RE DONE SO HANG UP
 mysqli_close($dbconnection);
 ?>
