@@ -2,9 +2,9 @@
   'use strict';
   angular
     .module('app')
-    .controller('mainCtrl', mainCtrl);
+    .controller('homeCtrl', homeCtrl);
 
-  function mainCtrl() {
+  function homeCtrl() {
     var vm = this;
 
     vm.buttonName = "Submit";

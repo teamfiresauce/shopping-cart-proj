@@ -6,13 +6,13 @@ angular
 
 function appConfig ($stateProvider, $urlRouterProvider, $httpProvider) {
 
-        $urlRouterProvider.otherwise('/main');
+        $urlRouterProvider.otherwise('/home');
 
         $stateProvider
-            .state('main', {
-                url: '/main',
-                templateUrl: 'js/main.html',
-                controller: 'mainCtrl',
+            .state('home', {
+                url: '/home',
+                templateUrl: 'js/home/home.html',
+                controller: 'homeCtrl',
                 controllerAs: 'vm'
             })
 
