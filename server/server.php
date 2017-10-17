@@ -1,13 +1,13 @@
 <?php
 // Dependencies
-require_once('./resources/variables.php');
+include_once('./database/DBHelper.php');
 include_once('./controllers/productsController.php');
 include_once('./controllers/orderedProductsController.php');
 include_once('./controllers/shippingController.php');
 include_once('./controllers/paymentController.php');
 include_once('./controllers/ordersController.php');
 
-if (isset($_GET)) { 
+if (isset($_GET)) {
   $method = $_GET['method'];
 }
 if(isset($_REQUEST['data']))
@@ -25,7 +25,13 @@ ini_set('display_errors', 'On');
 set_error_handler("var_dump");
 // ERROR HANDELING
 
-$dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
+$db = new DBHelper();
+
+$orderedProducts = new OrderedProductsController($db);
+$orders = new OrdersController($db);
+$payment = new PaymentController($db);
+$products = new ProductsController($db);
+$shipping = new shippingController($db);
 
 switch ($method) {
     //Products
@@ -111,7 +117,4 @@ switch ($method) {
 }
 
 return $result;
-
-//WE'RE DONE SO HANG UP
-mysqli_close($dbconnection);
 ?>

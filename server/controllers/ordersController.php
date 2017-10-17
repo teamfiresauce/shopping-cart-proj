@@ -1,55 +1,54 @@
 <?php
 
-// GET ALL ORDERS
-function getAllOrders ()
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "SELECT * FROM orders";
-    $result = mysqli_query($dbconnection,   $query) or die ('query failed');
-    
-    return $result;
+class OrdersController {
+
+    public $table = 'orders';
+    public $db;
+
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
+    // GET ALL ORDERS
+    public function getAllOrders ()
+    {
+        $result = $this->db->getAll($this->table);
+        
+        return $result;
+    }
+
+    // GET ALL ORDERS
+    public function getOrdersById ($order)
+    {
+        $result = $this->db->getById($this->table, $order['id']);
+        
+        return $result;
+    }
+
+    // CREATE ORDER
+    public function createOrder ($order)
+    {
+        $result = $this->db->create($this->table, $order);
+        
+        return $result;
+    }
+
+    // UPDATE ORDER
+    public function updateOrder ($order)
+    {
+        $id = $order['id'];
+		unset($order['id']);
+        $result = $this->db->update($this->table, $id, $order);
+        
+        return $result;
+    }
+
+    // DELETE ORDER
+    public function deleteOrder ($order)
+    {
+        $result = $this->db->delete($this->table, $order['id']);
+        
+        return $result;
+    }
 }
-
-// GET ALL ORDERS
-function getOrdersById ($order)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "SELECT * FROM orders WHERE id = $order[id]";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
-
-// CREATE ORDER
-function createOrder ($order)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "INSERT INTO orders (time_stamp, payment_id, shipping_id)" .
-    "VALUES ('order[time_stamp]','$order[payment_id]','$order[shipping_id]')";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
-
-// UPDATE ORDER
-function updateOrder ($order)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "UPDATE orders SET time_stamp='$order[time_stamp]', payment_id='$order[payment_id]', shipping_id='$order[shipping_id]' WHERE id=$order[id]";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
-
-// DELETE ORDER
-function deleteOrder ($order)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "DELETE FROM orders WHERE id=$order[id]";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
-
-
-?>

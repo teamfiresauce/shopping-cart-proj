@@ -1,51 +1,54 @@
 <?php
 
-// GET ALL SHIPPING
-function getAllShipping()
-{
-	$dbconnection = mysqli_connect( HOST, USER, PASSWORD, DB_NAME )or die( 'connection to DB failed' );
-	$query = "SELECT * FROM shipping";
-	$result = mysqli_query( $dbconnection, $query )or die( 'query failed' );
+class ShippingController {
 
-	return $result;
+	public $table = 'shipping';
+	public $db;
+
+	public function __construct($db) {
+		$this->db = $db;
+	}
+
+	// GET ALL SHIPPING
+	public function getAllShipping()
+	{
+		$result = $this->db->getAll($this->table);
+
+		return $result;
+	}
+
+	// GET ALL SHIPPING
+	public function getShippingById( $shipping )
+	{
+		$result = $this->db->getById($this->table, $shipping['id']);
+
+		return $result;
+	}
+
+	// CREATE SHIPPING
+	public function createShipping($shipping)
+	{
+		$result = $this->db->create($this->table, $shipping);
+
+		return $result;
+	}
+
+	// UPDATE SHIPPING
+	public function updateShipping($shipping)
+	{
+		$id = $shipping['id'];
+		unset($shipping['id']);
+		$result = $this->db->update($this->table, $id, $shipping);
+
+		return $result;
+	}
+
+
+	// DELETE SHIPPING
+	public function deleteShipping($shipping)
+	{
+		$result = $this->db->delete($this->table, $shipping['id']);
+
+		return $result;
+	}
 }
-
-// GET ALL SHIPPING
-function getShippingById( $shipping ) {
-	$dbconnection = mysqli_connect( HOST, USER, PASSWORD, DB_NAME )or die( 'connection to DB failed' );
-	$query = "SELECT * FROM shipping WHERE id = $shipping[id]";
-	$result = mysqli_query( $dbconnection, $query )or die( 'query failed' );
-
-	return $result;
-}
-
-// CREATE SHIPPING
-function createShipping($shipping) {
-	$dbconnection = mysqli_connect( HOST, USER, PASSWORD, DB_NAME )or die( 'connection to DB failed' );
-	$query = "INSERT INTO shipping (name, city, state, zip, address)" .
-	"VALUES ('$shipping[name]','$shipping[city]','$shipping[state]','$shipping[zip]', '$shipping[address]')";
-	$result = mysqli_query( $dbconnection, $query )or die( 'query failed' );
-
-	return $result;
-}
-
-// UPDATE SHIPPING
-function updateShipping($shipping) {
-	$dbconnection = mysqli_connect( HOST, USER, PASSWORD, DB_NAME )or die( 'connection to DB failed' );
-	$query = "UPDATE shipping SET name='$shipping[name]', city='$shipping[city]', state='$shipping[state]', zip='$shipping[zip]', address='$shipping[address]' WHERE id=$shipping[id]";
-	$result = mysqli_query( $dbconnection, $query )or die( 'query failed' );
-
-	return $result;
-}
-
-
-// DELETE SHIPPING
-function deleteShipping($shipping) {
-	$dbconnection = mysqli_connect( HOST, USER, PASSWORD, DB_NAME )or die( 'connection to DB failed' );
-	$query = "DELETE FROM shipping WHERE id=$shipping[id]";
-	$result = mysqli_query( $dbconnection, $query )or die( 'query failed' );
-
-	return $result;
-}
-
-?>
