@@ -1,13 +1,13 @@
 <?php
 // Dependencies
-require_once('./resources/variables.php');
+include_once('./database/DBHelper.php');
 include_once('./controllers/productsController.php');
 include_once('./controllers/orderedProductsController.php');
 include_once('./controllers/shippingController.php');
 include_once('./controllers/paymentController.php');
 include_once('./controllers/ordersController.php');
 
-if (isset($_GET)) { 
+if (isset($_GET)) {
   $method = $_GET['method'];
 }
 if(isset($_REQUEST['data']))
@@ -25,93 +25,97 @@ ini_set('display_errors', 'On');
 set_error_handler("var_dump");
 // ERROR HANDELING
 
-$dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
+$db = new DBHelper();
+
+$orderedProducts = new OrderedProductsController($db);
+$orders = new OrdersController($db);
+$payment = new PaymentController($db);
+$products = new ProductsController($db);
+$shipping = new shippingController($db);
 
 switch ($method) {
     //Products
     case 'getAllProducts':
-        $result = getAllProducts();
+        $result = $products->getAllProducts();
         break;
     case 'getProductById':
-        $result = getProductById($data);
+        $result = $products->getProductById($data);
         break;
     case 'updateProduct':
-        $result = updateProduct($data);
+        $result = $products->updateProduct($data);
         break;
     case 'createProduct':
-        $result = createProduct($data);
+        $result = $products->createProduct($data);
         break;
     case 'deleteProduct':
-        $result = deleteProduct($data);
+        $result = $products->deleteProduct($data);
         break;
     //OrderedProducts
     case 'getAllOrderedProducts':
-        $result = getAllOrderedProducts();
+        $result = $orderedProducts->getAllOrderedProducts();
         break;
     case 'getOrderedProductById':
-        $result = getAllOrderedProductById($data);
+        $result = $orderedProducts->getAllOrderedProductById($data);
         break;
     case 'updateOrderedProduct':
-        $result = updateOrderedProduct($data);
+        $result = $orderedProducts->updateOrderedProduct($data);
         break;
     case 'createOrderedProduct':
-        $result = createOrderedProduct($data);
+        $result = $orderedProducts->createOrderedProduct($data);
         break;
     case 'deleteOrderedProduct':
-        $result = deleteOrderedProduct($data);
+        $result = $orderedProducts->deleteOrderedProduct($data);
         break;
     //Orders
     case 'getAllOrders':
-        $result = getAllOrders();
+        $result = $orders->getAllOrders();
         break;
     case 'getOrderById':
-        $result = getOrderById($data);
+        $result = $orders->getOrderById($data);
         break;
     case 'updateOrder':
-        $result = updateOrder($data);
+        $result = $orders->updateOrder($data);
         break;
     case 'createOrder':
-        $result = createOrder($data);
+        $result = $orders->createOrder($data);
         break;
     case 'deleteOrder':
-        $result = deleteOrder($data);
+        $result = $orders->deleteOrder($data);
         break;
     //Payments
     case 'getAllPayments':
-        $result = getAllPayments();
+        $result = $payment->getAllPayments();
         break;
     case 'getPaymentById':
-        $result = getPaymentById($data);
+        $result = $payment->getPaymentById($data);
         break;
     case 'updatePayment':
-        $result = updatePayment($data);
+        $result = $payment->updatePayment($data);
         break;
     case 'createPayment':
-        $result = createPayment($data);
+        $result = $payment->createPayment($data);
         break;
     case 'deletePayment':
-        $result = deletePayment($data);
+        $result = $payment->deletePayment($data);
         break;
     //Shipping
     case 'getAllShipping':
-        $result = getAllShipping();
+        $result = $shipping->getAllShipping();
         break;
     case 'getShippingById':
-        $result = getShippingById($data);
+        $result = $shipping->getShippingById($data);
         break;
     case 'updateShipping':
-        $result = updateShipping($data);
+        $result = $shipping->updateShipping($data);
         break;
     case 'createShipping':
-        $result = createShipping($data);
+        $result = $shipping->createShipping($data);
         break;
     case 'deleteShipping':
-        $result = deleteShipping($data);
+        $result = $shipping->gdeleteShipping($data);
         break;
 }
 
 return $result;
 
-//WE'RE DONE SO HANG UP
-mysqli_close($dbconnection);
 ?>

@@ -1,54 +1,54 @@
 <?php
 
-// GET ALL PRODUCTS
-function getAllOrderedProducts ()
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "SELECT * FROM ordered_products";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
+class OrderedProductsController {
 
-// GET ALL PRODUCTS
-function getOrderedProductById ($orderedProduct)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "SELECT * FROM ordered_products WHERE id = $orderedProduct[id]";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
+    public $table = 'ordered_products';
+    public $db;
 
-// CREATE PRODUCT
-function createOrderedProduct ($orderedProduct)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "INSERT INTO ordered_products (order_id, product_id)" .
-    "VALUES ('$orderedProduct[orderId]','$orderedProduct[productId]')";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
 
-// UPDATE PRODUCT
-function updateOrderedProduct ($orderedProduct)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "UPDATE ordered_products SET order_id='$orderedProduct[orderId]', product_id='$orderedProduct[productId]' WHERE id=$orderedProduct[id]";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
+    // GET ALL PRODUCTS
+    public function getAllOrderedProducts ()
+    {
+        $result = $this->db->getAll($this->table);
+        
+        return $result;
+    }
 
-// DELETE PRODUCT
-function deleteOrderedProduct ($orderedProduct)
-{
-    $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-    $query = "DELETE FROM ordered_products WHERE id=$orderedProduct[id]";
-    $result = mysqli_query($dbconnection, $query) or die ('query failed');
-    
-    return $result;
-}
+    // GET ALL PRODUCTS
+    public function getOrderedProductById ($orderedProduct)
+    {
+        $result = $this->db->getById($this->table, $orderedProduct['id']);
+        
+        return $result;
+    }
 
-?>
+    // CREATE PRODUCT
+    public function createOrderedProduct ($orderedProduct)
+    {
+        $result = $this->db->create($this->table, $orderedProduct);
+        
+        return $result;
+    }
+
+    // UPDATE PRODUCT
+    public function updateOrderedProduct ($orderedProduct)
+    {
+        $id = $orderedProduct['id'];
+		unset($orderedProduct['id']);
+        $result = $this->db->update($this->table, $id, $orderedProduct);
+        
+        return $result;
+    }
+
+    // DELETE PRODUCT
+    public function deleteOrderedProduct ($orderedProduct)
+    {
+        $result = $this->db->delete($this->table, $orderedProduct['id']);
+        
+        return $result;
+    }
+}

@@ -1,44 +1,48 @@
 <?php
 
-// GET ALL PAYMENT
-function getAllPayments() 
-{
-  $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-  $query = "SELECT * FROM payment";
-  $result = mysqli_query($dbconnection, $query) or die ('query failed');
-  
-  return $result;
+class PaymentController {
+
+  public $table = 'payment';
+  public $db;
+
+  public function __construct($db)
+  {
+    $this->db = $db;
+  }
+
+  // GET ALL PAYMENT
+  public function getAllPayments() 
+  {
+    $result = $this->db->getAll($this->table);
+    
+    return $result;
+  }
+
+  // GET ALL PAYMENT
+  public function getPaymentById($payment) 
+  {
+    $result = $this->db->getById($this->table, $payment['id']);
+
+    return $result;
+  }
+
+  // CREATE PAYMENT
+  public function createPayment($payment) 
+  {
+    $result = $this->db->create($this->table, $payment);
+
+    return $result;
+  }
+
+  // DELETE PAYMENT
+  public function deletePayment($payment) 
+  {
+    $result = $this->db->delete($this->table, $payment['id']);
+
+    return $result;
+  }
 }
 
-// GET ALL PAYMENT
-function getPaymentById($payment) 
-{
-  $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-  $query = "SELECT * FROM payment WHERE id = $payment[id]";
-  $result = mysqli_query($dbconnection, $query) or die ('query failed');
 
-  return $result;
-}
-
-// CREATE PAYMENT
-function createPayment($payment) 
-{
-  $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-  $query = "INSERT INTO payment (card_holder, card_number, expiration, cvv)" .
-  "VALUES ('$payment[card_holder]','$payment[card_number]','$payment[expiration]','$payment[cvv]')";
-  $result = mysqli_query($dbconnection, $query) or die ('query failed');
-
-  return $result;
-}
-
-// DELETE PAYMENT
-function deletePayment($payment) 
-{
-  $dbconnection = mysqli_connect(HOST,USER,PASSWORD,DB_NAME) or die ('connection to DB failed');
-  $query = "DELETE FROM payment WHERE id=$payment[id]";
-  $result = mysqli_query($dbconnection, $query) or die ('query failed');
-
-  return $result;
-}
 
 ?>
