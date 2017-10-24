@@ -11,11 +11,11 @@ $item = [
 ];
 
 if (array_key_exists('cart', $_SESSION)) {
-    $_SESSION['cart'][] = $item;
+    $_SESSION['cart'][$item['id']] = $item;
 }
 else {
     $_SESSION['cart'] = [];
-    $_SESSION['cart'][] = $item;
+    $_SESSION['cart'][$item['id']] = $item;
 }
 
 ?>
