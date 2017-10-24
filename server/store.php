@@ -1,0 +1,77 @@
+<?php
+
+include_once('./database/DBHelper.php');
+include_once('./controllers/productsController.php');
+
+error_reporting(-1);
+ini_set('display_errors', 'On');
+set_error_handler("var_dump");
+// Start the session
+// session_start();
+/*
+	$item = [
+		'id' => $_GET[ 'id' ],
+		'name' => $_GET[ 'name' ],
+		'price' => $_GET[ 'price' ]
+	];
+
+	$_SESSION[ 'cart' ] = [];
+
+	$_SESSION[ 'cart' ][] = $item;
+	
+*/
+
+$photoPath = 'https://cdn2.bigcommerce.com/n-ou1isn/nvf47fd/products/177/images/873/Dirty_Dicks_hot_sauce__18458.1499377247.386.513.png?c=2';
+
+
+$db = new DBHelper();
+
+$products_controller = new ProductsController($db);
+
+$products = $products_controller->getAllProducts();
+session_start();
+var_dump($_SESSION['cart']);
+
+?>
+
+<!doctype html>
+<html>
+<head>
+<link href="../styling.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<title>Store Front</title>
+</head>
+
+<body>
+	<div id="wholething">
+	<?php foreach($products as $product) { ?>
+		<div id="container">
+		<h3><?php echo $product['name'] ?></h3>
+		</a>
+		<br>
+		<br>
+		<div id=photo2>
+		<img src="<?php echo $photoPath ?>" height="275" width="185"/>
+		</div>
+
+		<p>
+		<br>
+		<div id=container2>
+		<p><strong>Available Quantity<strong> <?php echo $product['quantity'] ?></p>
+		<p><strong>Description: </strong><?php echo $product['description'] ?></p>
+		<p><strong>Price: </strong><?php echo $product['price'] ?></p>
+		<form action="addToCart.php" method="post">
+			<br>
+			<input name="id" value="<?php echo $product['id'] ?>" type="hidden">
+			<input name="name" value="<?php echo $product['name'] ?>" type="hidden">
+			<input name="price" value="<?php echo $product['price'] ?>" type="hidden">
+			<input name="description" value="<?php echo $product['description'] ?>" type="hidden">
+			<input class="button" type="submit" value="Add to Cart">
+			</form>
+		</div>
+	<?php } ?>
+	</div>
+	</div>
+	
+</body>
+</html>
