@@ -74,9 +74,10 @@ City<input type="text" name= "city">
 <br>
 State<input type="text" name= "state" maxlength="2">
 <br>
-Zip<input type="number" name= "zip" maxlength="5">
+Zip<input type="number" name= "zip" maxlength="4">
 
-<!-- <input type="hidden" name= "orders"> -->
+<input type="hidden" name= "orders">
+
 <input type="submit" name= "ProceedtoCheckout">
 </form>
 

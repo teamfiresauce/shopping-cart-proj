@@ -29,22 +29,25 @@ $shippingdata = [
 	'zip' => $_POST['zip'],
 ];
 
-$date = new DateTime();
-echo $date->format('U = Y-m-d H:i:s') . "\n";
+$date = date_create()->format('Y-m-d H:i:s');
+
+// $paymentShipingMatch = if (payment_id == shipping_id)
+// 	{ echo payment_id} 
+// else { echo "payment and shipping don't match"};
 
 $ordersdata = [
-	'time_stamp' => '$date',
-	// 'payment_id' => ,
-	// 'shipping_id' =>
+	'time_stamp' => (string)$date,
+	// 'payment_id' => $paymentShipingMatch,
+	// 'shipping_id' => $paymentShipingMatch
 ];
 
 $result = $payment->createPayment($creditcard);
 $result2 = $shipping->createShipping($shippingdata);
-// $result3 = $orders->createOrders($ordersdata);
+$result3 = $orders->createOrder($ordersdata);
 
 $whatever = $payment->getAllPayments();
 $whatever2 = $shipping->getAllShipping();
-
+$whatever3 = $orders->getAllOrders();
 
 var_dump($whatever);
 var_dump($whatever2);
