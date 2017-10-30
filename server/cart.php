@@ -9,8 +9,6 @@ foreach($cart as $cart_item){
  $totalprice += $cart_item['price'];
 }
 
-var_dump($cart);
-
 ?>
 
 

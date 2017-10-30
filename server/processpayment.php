@@ -8,49 +8,51 @@ include_once('./controllers/ordersController.php');
 // ini_set('display_errors', 'On');
 // set_error_handler("var_dump");
 
+$valid_card_number = 1234567890;
+$message = '';
+
 $db = new DBHelper();
 
 $orders = new OrdersController($db);
 $payment = new PaymentController($db);
 $shipping = new shippingController($db);
 
-$creditcard = [ 
-	'card_holder' => $_POST['card_holder'],
-	'card_number' => $_POST['card_number'],
-	'expiration' => $_POST['expiration'],
-	'cvv' => $_POST['cvv']
-];
+if ($_POST['card_number'] == $valid_card_number) {
+	$creditcard = [
+		'card_holder' => $_POST['card_holder'],
+		'card_number' => $_POST['card_number'],
+		'expiration' => $_POST['expiration'],
+		'cvv' => $_POST['cvv']
+	];
+	
+	$shippingdata = [
+		'name'=> $_POST['name'],	
+		'address' => $_POST['address'],
+		'city' => $_POST['city'],
+		'state' => $_POST['state'],
+		'zip' => $_POST['zip'],
+	];
+	
+	$date = date_create()->format('Y-m-d H:i:s');
+	
+	$payment_id = $payment->createPayment($creditcard);
+	$shipping_id = $shipping->createShipping($shippingdata);
 
-$shippingdata = [
-	'name'=> $_POST['name'],	
-	'address' => $_POST['address'],
-	'city' => $_POST['city'],
-	'state' => $_POST['state'],
-	'zip' => $_POST['zip'],
-];
+	$ordersdata = [
+		'time_stamp' => (string)$date,
+		'payment_id' => $payment_id,
+		'shipping_id' => $shipping_id
+	];
 
-$date = date_create()->format('Y-m-d H:i:s');
-
-// $paymentShipingMatch = if (payment_id == shipping_id)
-// 	{ echo payment_id} 
-// else { echo "payment and shipping don't match"};
-
-$ordersdata = [
-	'time_stamp' => (string)$date,
-	// 'payment_id' => $paymentShipingMatch,
-	// 'shipping_id' => $paymentShipingMatch
-];
-
-$result = $payment->createPayment($creditcard);
-$result2 = $shipping->createShipping($shippingdata);
-$result3 = $orders->createOrder($ordersdata);
-
-$whatever = $payment->getAllPayments();
-$whatever2 = $shipping->getAllShipping();
-$whatever3 = $orders->getAllOrders();
-
-// var_dump($whatever);
-// var_dump($whatever2);
+	$order_result = $orders->createOrder($ordersdata);
+	session_start();
+	unset($_SESSION['cart']);
+	session_destroy();
+	$message = 'Thank you for your purchase!';
+}
+else {
+	$message = 'That credit card is invalid. Please try a different credit card.';
+}
 
 ?>
 
@@ -59,11 +61,12 @@ $whatever3 = $orders->getAllOrders();
 <head>
 <link href="../styling.css" rel="stylesheet" type="text/css">
 <meta charset="utf-8">
-<meta http-equiv="refresh" content="2;url=store.php">
 <title>Cart</title>
 </head>
 
 <body>
-	<h1>Thank you for your purchase</h1>
+	<h1><?php echo $message ?></h1>
+	<a href="store.php">Take me back to the store</a>
+	<a href="cart.php">Take me back to my cart</a>
 </body>
 </html>

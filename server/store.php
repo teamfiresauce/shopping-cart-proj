@@ -6,20 +6,6 @@ include_once('./controllers/productsController.php');
 error_reporting(-1);
 ini_set('display_errors', 'On');
 set_error_handler("var_dump");
-// Start the session
-// session_start();
-/*
-	$item = [
-		'id' => $_GET[ 'id' ],
-		'name' => $_GET[ 'name' ],
-		'price' => $_GET[ 'price' ]
-	];
-
-	$_SESSION[ 'cart' ] = [];
-
-	$_SESSION[ 'cart' ][] = $item;
-	
-*/
 
 $photoPath = 'https://cdn2.bigcommerce.com/n-ou1isn/nvf47fd/products/177/images/873/Dirty_Dicks_hot_sauce__18458.1499377247.386.513.png?c=2';
 
@@ -29,8 +15,6 @@ $db = new DBHelper();
 $products_controller = new ProductsController($db);
 
 $products = $products_controller->getAllProducts();
-session_start();
-var_dump($_SESSION['cart']);
 
 ?>
 
