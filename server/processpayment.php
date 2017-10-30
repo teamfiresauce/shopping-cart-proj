@@ -4,9 +4,9 @@ include_once('./controllers/shippingController.php');
 include_once('./controllers/paymentController.php');
 include_once('./controllers/ordersController.php');
 
-error_reporting(-1);
-ini_set('display_errors', 'On');
-set_error_handler("var_dump");
+// error_reporting(-1);
+// ini_set('display_errors', 'On');
+// set_error_handler("var_dump");
 
 $db = new DBHelper();
 
@@ -49,7 +49,21 @@ $whatever = $payment->getAllPayments();
 $whatever2 = $shipping->getAllShipping();
 $whatever3 = $orders->getAllOrders();
 
-var_dump($whatever);
-var_dump($whatever2);
+// var_dump($whatever);
+// var_dump($whatever2);
 
 ?>
+
+<!doctype html>
+<html>
+<head>
+<link href="../styling.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="2;url=store.php">
+<title>Cart</title>
+</head>
+
+<body>
+	<h1>Thank you for your purchase</h1>
+</body>
+</html>

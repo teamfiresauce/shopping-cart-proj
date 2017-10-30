@@ -55,9 +55,9 @@ var_dump($cart);
 <form action="processpayment.php" method="post">
 Payment Information:
 <br>
-Credit Card Number<input type="text" inputmode="numeric" name= "card_number" maxlength="16">
+Credit Card Number<input type="text" name= "card_number" inputmode="numeric"  maxlength="16">
 <br>
-CVV code<input type="text" name= "cvv" maxlength="3">
+CVV code<input type="text" name= "cvv" inputmode="numeric" maxlength="3">
 <br>
 Expiration <input type="month" name= "expiration"> 
 <br>
@@ -72,9 +72,9 @@ Address<input type="text" name= "address">
 <br>
 City<input type="text" name= "city">
 <br>
-State<input type="text" name= "state" maxlength="2">
+State<input type="text" name= "state" maxlength="2" placeholder="UT">
 <br>
-Zip<input type="number" name= "zip" maxlength="4">
+Zip<input type="number" name= "zip" >
 
 <input type="hidden" name= "orders">
 
