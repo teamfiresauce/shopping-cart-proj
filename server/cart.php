@@ -25,9 +25,10 @@ foreach($cart as $cart_item){
     <header>
         <div>
             <img class="hot-icon" src=".././images/hot.png" alt="">
-            <big>TEAM FIRE SAUCE Shopping Cart</big>
+            <big>Team Fire Sauce Shopping Cart</big>
         </div>
-        <a href="./index.html">HOME</a>
+        <a href="store.php">Store</a>
+        <a href="cart.php">Cart</a>
     </header>
 
     <h1>Your Shopping Cart</h1>

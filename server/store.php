@@ -21,12 +21,20 @@ $products = $products_controller->getAllProducts();
 <!doctype html>
 <html>
 <head>
-<link href="../styling.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href=".././styles/styles.css">
 <meta charset="utf-8">
 <title>Store Front</title>
 </head>
 
 <body>
+	<header>
+        <div>
+            <img class="hot-icon" src=".././images/hot.png" alt="">
+            <big>Team Fire Sauce Store</big>
+        </div>
+        <a href="store.php">Store</a>
+		<a href="cart.php">Cart</a>
+    </header>
 	<div id="wholething">
 	<?php foreach($products as $product) { ?>
 		<div id="container">
