@@ -3,6 +3,7 @@ include_once('./database/DBHelper.php');
 include_once('./controllers/shippingController.php');
 include_once('./controllers/paymentController.php');
 include_once('./controllers/ordersController.php');
+include_once('./controllers/orderedProductsController.php');
 
 // error_reporting(-1);
 // ini_set('display_errors', 'On');
@@ -16,6 +17,7 @@ $db = new DBHelper();
 $orders = new OrdersController($db);
 $payment = new PaymentController($db);
 $shipping = new shippingController($db);
+$ordered_products = new OrderedProductsController($db);
 
 if ($_POST['card_number'] == $valid_card_number) {
 	$creditcard = [
@@ -44,8 +46,21 @@ if ($_POST['card_number'] == $valid_card_number) {
 		'shipping_id' => $shipping_id
 	];
 
-	$order_result = $orders->createOrder($ordersdata);
+	$order_id = $orders->createOrder($ordersdata);
+
 	session_start();
+
+	$products = $_SESSION['cart'];
+
+	foreach($products as $product_id => $product) {
+		$new_ordered_product = [
+			'order_id' => $order_id,
+			'product_id' => $product_id
+		];
+
+		$ordered_products->createOrderedProduct($new_ordered_product);
+	}
+
 	unset($_SESSION['cart']);
 	session_destroy();
 	$message = 'Thank you for your purchase!';
