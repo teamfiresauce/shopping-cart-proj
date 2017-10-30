@@ -59,7 +59,7 @@ class DBHelper {
         $sql = $sql . $value_string;
       
         $result = $this->db->query($sql);
-        return $result;
+        return $this->db->insert_id;
     }
 
     public function update($table, $id, $data)
