@@ -4,23 +4,33 @@ include_once('./controllers/productsController.php');
 include_once('./controllers/ordersController.php');
 include_once('./controllers/shippingController.php');
 
-$db = new DBHelper();
+$logged_in = false;
+$admin_username = 'admin';
+$admin_password = 'password1234';
 
-$products_controller = new ProductsController($db);
+session_start();
 
-$products = $products_controller->getAllProducts();
+if (isset($_SESSION['admin_username']) || (isset($_POST['admin_username']) && $_POST['admin_username'] == $admin_username) && (isset($_POST['admin_password']) && $_POST['admin_password'] == $admin_password)) {
+    $_SESSION['admin_username'] = $_POST['admin_username'];
+    $logged_in = true;
+    $db = new DBHelper();
 
-$orders_controller = new OrdersController($db);
-$shipping_controller = new shippingController($db);
+    $products_controller = new ProductsController($db);
 
-$all_orders = $orders_controller->getAllOrders();
+    $products = $products_controller->getAllProducts();
 
-$orders = [];
+    $orders_controller = new OrdersController($db);
+    $shipping_controller = new shippingController($db);
 
-foreach ($all_orders as $order) {
-$shipping = $shipping_controller->getShippingById($order['shipping_id']);
-$order['shipping_info'] = $shipping;
-$orders[] = $order;
+    $all_orders = $orders_controller->getAllOrders();
+
+    $orders = [];
+
+    foreach ($all_orders as $order) {
+        $shipping = $shipping_controller->getShippingById($order['shipping_id']);
+        $order['shipping_info'] = $shipping;
+        $orders[] = $order;
+    }
 }
 
 ?>
@@ -43,6 +53,7 @@ $orders[] = $order;
 		<a href="cart.php">Cart</a>
 		<a href="admin.php">Admin</a>
     </header>
+    <?php if ($logged_in) { ?>
 	<div id="wholething">
 
 		<div id="container">
@@ -76,10 +87,9 @@ $orders[] = $order;
                 <br>
                 <span><strong>Zip:</strong> <?php echo $order['shipping_info']['zip'] ?></span>
                 <br>
-                <form>
-                <input class="button" type="submit" value="Approve Order">
-                <input class="button" type="submit" value="Disapprove Order">
-                </form>
+                <br>
+                <br>
+                <br>
             <?php } ?>
             </div>
 
@@ -87,6 +97,13 @@ $orders[] = $order;
 
 	</div>
 	</div>
-	
+    <?php } else { ?>
+	<form action="admin.php" method="post">
+        <h3>Admin Login</h3>
+        <input name="admin_username" type="text">
+        <input name="admin_password" type="password">
+        <button type="submit" value="Submit">Submit</button>
+    </form>
+    <?php } ?>
 </body>
 </html>
