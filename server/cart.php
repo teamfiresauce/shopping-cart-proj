@@ -36,7 +36,7 @@ foreach($cart as $cart_item){
 
 <!-- The add to cart form -->	
 <p> 
-	<?php echo $totalprice?>
+	Total Price: $<?php echo $totalprice?>
 
 </p>
 <?php foreach($cart as $cart_item) { ?>
