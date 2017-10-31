@@ -38,6 +38,7 @@ $products = $products_controller->getAllProducts();
     </header>
 	<div id="wholething">
 	<?php foreach($products as $product) { ?>
+	<div id="wrapper">
 		<div id="container">
 		<h3><?php echo $product['name'] ?></h3>
 		</a>
@@ -62,6 +63,7 @@ $products = $products_controller->getAllProducts();
 			<input class="button" type="submit" value="Add to Cart">
 			</form>
 		</div>
+	</div>
 	<?php } ?>
 	</div>
 	</div>

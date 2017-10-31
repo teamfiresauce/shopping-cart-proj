@@ -86,7 +86,6 @@ textarea {
 	padding: -2%;
 	width: 15%;
 	float:left;
-	
 }
 
 #wholething
@@ -95,4 +94,8 @@ textarea {
   	display: block;
     margin: auto;
     width: 80%;
+}
+
+#cart-item {
+    float: left;
 }

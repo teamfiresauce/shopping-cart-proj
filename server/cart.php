@@ -31,7 +31,8 @@ foreach($cart as $cart_item){
         <a href="cart.php">Cart</a>
         <a href="admin.php">Admin</a>
     </header>
-
+<div style="padding: 50px">
+<div id="container" style="padding-right: 100px">
     <h1>Your Shopping Cart</h1>
 
 <!-- The add to cart form -->	
@@ -39,7 +40,9 @@ foreach($cart as $cart_item){
 	Total Price: $<?php echo $totalprice?>
 
 </p>
+
 <?php foreach($cart as $cart_item) { ?>
+<div id="cart-item">
 <img class="items" src=".././images/boss-sauce.png" alt="AwesomeSauce">
 
 <p> 
@@ -50,8 +53,10 @@ foreach($cart as $cart_item){
 <p> 
 	<?php echo $cart_item['description']?>
 </p>
+</div>
 <?php } ?>
-
+</div>
+<div id="wholething" style="padding-top:100px">
 <form action="processpayment.php" method="post">
 Payment Information:
 <br>
@@ -80,8 +85,8 @@ Zip<input type="number" name= "zip" >
 
 <input type="submit" name= "ProceedtoCheckout">
 </form>
-
-
+</div>
+</div>
 
    <!--  <footer>
             Copyright © TeamFireSauceBoss. All rights reserved 
