@@ -34,6 +34,7 @@ $products = $products_controller->getAllProducts();
         </div>
         <a href="store.php">Store</a>
 		<a href="cart.php">Cart</a>
+		<a href="admin.php">Admin</a>
     </header>
 	<div id="wholething">
 	<?php foreach($products as $product) { ?>

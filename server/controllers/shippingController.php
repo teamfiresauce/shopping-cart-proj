@@ -20,7 +20,7 @@ class ShippingController {
 	// GET ALL SHIPPING
 	public function getShippingById( $shipping )
 	{
-		$result = $this->db->getById($this->table, $shipping['id']);
+		$result = $this->db->getById($this->table, $shipping);
 
 		return $result;
 	}

@@ -29,6 +29,7 @@ foreach($cart as $cart_item){
         </div>
         <a href="store.php">Store</a>
         <a href="cart.php">Cart</a>
+        <a href="admin.php">Admin</a>
     </header>
 
     <h1>Your Shopping Cart</h1>
