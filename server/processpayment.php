@@ -69,7 +69,32 @@ else {
 	$message = 'That credit card is invalid. Please try a different credit card.';
 }
 
+// Mail section
+$name = $_POST['name'];
+$from = "jtporter9@gmail.com";
+$to = $_POST['email'];
+$price = $_POST['total'];
+$tax = $price * 0.07;
+$totalWithTax = $tax + $price + 500; // $5 for shipping flat rate. 
+$total = number_format(($totalWithTax /100), 2, '.', ' ');
+$body = "Your total for your purchase was $" . $total . ".  Thank you for shopping with AWESOME SAUCE CO.";
+
+echo "Your total for your purchase was $" . $total . ".  Thank you for shopping with AWESOME SAUCE CO.";
+echo "<br> Plus shipping: " . number_format(($tax /100) , 2, '.', ' ') . "<br>" .  "and Tax: $5.00 <br>";
+
+
+$subject = "Awesome Sauce Order"; //subject 
+$header = "From: ". $name . " <" . $from . ">\r\n";
+
+if (mail($to, $subject, $body, $header)){
+  echo 'Your email has been sent!';
+} else {
+  echo 'Error: something went wrong.';
+}
 ?>
+
+
+
 
 <!doctype html>
 <html>

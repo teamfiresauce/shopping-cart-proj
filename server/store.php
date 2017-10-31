@@ -21,7 +21,7 @@ $products = $products_controller->getAllProducts();
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href=".././styles/styles.css">
+<link rel="stylesheet" type="text/css" href="./../styles/styles.css">
 <meta charset="utf-8">
 <title>Store Front</title>
 </head>

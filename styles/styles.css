@@ -52,7 +52,7 @@ header a:hover {
 
 input, textarea {
     margin:10px 0;
-    width:300px;
+    width:100%;
     padding:5px;
 }
 
@@ -79,6 +79,7 @@ textarea {
 
 #container
 {
+    text-align: center;
 	border-top-width: 5px;
 	border-top-color:#333;
 	margin-top: 1.2%;
@@ -94,8 +95,4 @@ textarea {
   	display: block;
     margin: auto;
     width: 80%;
-}
-
-#cart-item {
-    float: left;
 }

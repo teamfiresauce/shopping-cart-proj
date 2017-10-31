@@ -32,7 +32,7 @@ foreach($cart as $cart_item){
         <a href="admin.php">Admin</a>
     </header>
 <div style="padding: 50px">
-<div id="container" style="padding-right: 100px">
+<div style="padding: 10px">
     <h1>Your Shopping Cart</h1>
 
 <!-- The add to cart form -->	
@@ -56,9 +56,11 @@ foreach($cart as $cart_item){
 </div>
 <?php } ?>
 </div>
-<div id="wholething" style="padding-top:100px">
+<div id="wholething">
 <form action="processpayment.php" method="post">
-Payment Information:
+    <div>
+        <h3>Payment Information:</h3>
+    </div>
 <br>
 Credit Card Number<input type="text" name= "card_number" inputmode="numeric"  maxlength="16">
 <br>
@@ -73,6 +75,8 @@ Shipping Information:
 <br>
 Name <input type="text" name= "name">
 <br>
+Email <input type="email" name= "email">
+<br>
 Address<input type="text" name= "address">
 <br>
 City<input type="text" name= "city">
@@ -84,6 +88,8 @@ Zip<input type="number" name= "zip" >
 <input type="hidden" name= "orders">
 
 <input type="submit" name= "ProceedtoCheckout">
+
+<input type="hidden" name="total" value="<?php echo $totalprice; ?>">
 </form>
 </div>
 </div>
