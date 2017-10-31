@@ -21,7 +21,7 @@ class ProductsController {
     // GET ALL PRODUCTS
     function getProductById ($product)
     {
-        $result = $this->db->getById($this->table, $product['id']);
+        $result = $this->db->getById($this->table, $product);
         
         return $result;
     }
@@ -38,7 +38,10 @@ class ProductsController {
     function updateProduct ($product)
     {
         $id = $product['id'];
-		unset($product['id']);
+        unset($product['id']);
+        unset($product['name']);
+        unset($product['price']);
+        unset($product['description']);
         $result = $this->db->update($this->table, $id, $product);
         
         return $result;

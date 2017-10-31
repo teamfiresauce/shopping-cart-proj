@@ -8,10 +8,8 @@ $logged_in = false;
 $admin_username = 'admin';
 $admin_password = 'password1234';
 
-session_start();
-
-if (isset($_SESSION['admin_username']) || (isset($_POST['admin_username']) && $_POST['admin_username'] == $admin_username) && (isset($_POST['admin_password']) && $_POST['admin_password'] == $admin_password)) {
-    $_SESSION['admin_username'] = $_POST['admin_username'];
+if (isset($_COOKIE['admin_username']) || (isset($_POST['admin_username']) && $_POST['admin_username'] == $admin_username) && (isset($_POST['admin_password']) && $_POST['admin_password'] == $admin_password)) {
+    setcookie('admin_username', $admin_username);
     $logged_in = true;
     $db = new DBHelper();
 
@@ -52,6 +50,7 @@ if (isset($_SESSION['admin_username']) || (isset($_POST['admin_username']) && $_
         <a href="store.php">Store</a>
 		<a href="cart.php">Cart</a>
 		<a href="admin.php">Admin</a>
+        <?php if ($logged_in) { ?> <a href="logout.php">Logout</a> <?php } ?>
     </header>
     <?php if ($logged_in) { ?>
 	<div id="wholething">
@@ -64,11 +63,11 @@ if (isset($_SESSION['admin_username']) || (isset($_POST['admin_username']) && $_
 		        <span><strong>Name:</strong> <?php echo $product['name'] ?></span>
 		        <br>
 		        <span><strong>Description:</strong> <?php echo $product['description'] ?></span>
-		        <form method="post">
-		        <span><strong>Quantity:</strong> </span>
-                <input class="button" type="submit" value="-">
-                <span><?php echo $product['quantity'] ?></span>
-                <input class="button" type="submit" value="+">
+		        <form action="updateQuantity.php" method="post">
+		        <span><strong>Quantity:</strong> <?php echo $product['quantity'] ?></span>
+                <input name="quantity" type="number">
+                <input name="product_id" type="hidden" value="<?php echo $product['id']; ?>">
+                <button type="submit">Add to Quantity</button>
                 </form>
                 <br>
              <?php } ?>
